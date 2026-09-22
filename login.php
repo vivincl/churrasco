@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +7,11 @@ session_start();
     <title>Document</title>
 </head>
 <body>
-    <form action="index.php"></form>
+    <form action="autenticar.php" method="get">
+        <label for="">Email: <input type="text"></label>
+        <label for="">Senha: <input type="text"></label>
+
+        <button type="submit">Enviar</button>
+    </form>
 </body>
 </html>
