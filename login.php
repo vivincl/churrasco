@@ -8,8 +8,8 @@
 </head>
 <body>
     <form action="autenticar.php" method="get">
-        <label for="">Email: <input type="text"></label>
-        <label for="">Senha: <input type="text"></label>
+        <label for="">Email: <input name="email" type="text"></label>
+        <label for="">Senha: <input name="senha" type="text"></label>
 
         <button type="submit">Enviar</button>
     </form>
