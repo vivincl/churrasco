@@ -1,25 +1,38 @@
 <?php
 require_once("conexao.php");
-
-if (isset($_GET['pagamento'])) {
-    $pagamento = $_GET['pagamento'];
-    
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar</title>
-    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
     <form action="" method="get">
-        <label for="nomePesquisa">Pesquisar participante</label>
+        <label for="nomePesquisa">Pesquisar participante:</label>
         <input type="text" name="nomePesquisa" id="nomePesquisa">
         <button>Pesquisar</button>
     </form>
 
+<?php
+if (isset($_GET['nomePesquisa'])) {
+    $pesquisa = $_GET['nomePesquisa'];
+
+    if ($pesquisa === "") echo "";
+
+    else {
+        $sql = "SELECT nome FROM participantes WHERE nome LIKE '%$pesquisa%'";
+        $resultadoPesquisa = $mysqli->query($sql);
+
+        while ($participante = $resultadoPesquisa->fetch_assoc()) {
+            echo "<p>Nome: " . $participante['nome'] . "</p>";
+        }
+    }
+}
+?>
+    
     <br>
     <form action="" method="get">
         Pagamento: 
@@ -59,18 +72,19 @@ if (isset($_GET['pagamento'])) {
         </thead>
         <tbody>
             <tr>
-<?php
+
+            <?php
+if (isset($_GET['pagamento'])) {
+    $pagamento = $_GET['pagamento'];
+    
     if ($pagamento === "-1") {
         echo "";
     }
 
-    if ($pagamento === "todos") {
+    else if ($pagamento === "todos") {
         $sqlLista = "SELECT * FROM participantes";
         $resultadoLista = $mysqli->query($sqlLista);
-    
-        // while ($participante = $resultadoPagamento->fetch_assoc()) {
-        //     echo "<p>" . $participante['nome'] . "</p>";
-        // }
+
         while ($participante = $resultadoLista->fetch_assoc()) {
             echo "<td>" . $participante['nome'] . "</td>
             <td>" . $participante['turma'] . "</td>
@@ -89,9 +103,6 @@ if (isset($_GET['pagamento'])) {
         $sqlListaPagos = "SELECT * FROM participantes where pago = 1";
         $resultadoListaPagos = $mysqli->query($sqlListaPagos);
     
-        // while ($participante = $resultadoPagamento->fetch_assoc()) {
-        //     echo "<p>" . $participante['nome'] . "</p>";
-        // }
         while ($participante = $resultadoListaPagos->fetch_assoc()) {
             echo "<td>" . $participante['nome'] . "</td>
             <td>" . $participante['turma'] . "</td>
@@ -105,25 +116,28 @@ if (isset($_GET['pagamento'])) {
             </tr>";
         }
     }
-}
-?>
-            </tr>
+
+    else if ($pagamento === "pendentes") {
+        $sqlListaPendentes = "SELECT * FROM participantes where pago = 0";
+        $resultadoListaPendentes = $mysqli->query($sqlListaPendentes);
+    
+        while ($participante = $resultadoListaPendentes->fetch_assoc()) {
+            echo "<td>" . $participante['nome'] . "</td>
+            <td>" . $participante['turma'] . "</td>
+            <td>" . $participante['telefone'] . "</td>
+            <td>" . $participante['tipo_churrasco'] . "</td>
+            <td>" . $participante['acompanhamento'] . "</td>
+            <td>" . $participante['confirmado'] . "</td>
+            <td>" . $participante['pago'] . "</td>
+            <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+            <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+            </tr> 
         </tbody>
-    </table>
-
-    <br>
-
-<?php
-if (isset($_GET['nomePesquisa'])) {
-    $pesquisa = $_GET['nomePesquisa'];
-
-    $sql = "SELECT nome FROM participantes WHERE nome LIKE '%$pesquisa%'";
-    $resultadoPesquisa = $mysqli->query($sql);
-
-    while ($participante = $resultadoPesquisa->fetch_assoc()) {
-        echo "<p>Nome: " . $participante['nome'] . "</p>";
+    </table><br>";
+        }
     }
 }
 ?>
+
 </body>
 </html>
