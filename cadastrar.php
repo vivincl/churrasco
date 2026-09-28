@@ -8,21 +8,22 @@ require_once('conexao.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de novos jogos</title>
+    
 </head>
 <body style="display: flex; flex-direction:column;">
-    <form action="salvar.php" method="post">
+    <form action="salvar.php" method="post" id="form_cadastrar">
         <h2>Cadastre o participante</h2>
         <p>Insira as informações</p>
-        <label for="">Nome: <input type="text" name="nome"></label>
+        <label for="">Nome: <input type="text" name="nome" required></label>
         <br><br>
-        <label for="">Turma: <input type="text" name="turma"></label>
+        <label for="">Turma: <input type="text" name="turma" required></label>
         <br><br>
         <label for="">Telefone: <input type="text" name="telefone"></label>
         <br><br>
-        <label for="">Tipo de churrasco: <input type="radio" name="tipo" value="vegetariano"> Vegetariano
+        <label for="">Tipo de churrasco: <input type="radio" name="tipo" value="vegetariano" required> Vegetariano
                 <input type="radio" name="tipo" value="normal">Normal</label>
         <br><br>
-        <label for="">Acompanhamento: <input type="text" name="acompanhamento"><br>
+        <label for="">Acompanhamento: <input type="text" id="acompanhamento" name="acompanhamento"><br>
         <br>
         <label for="">Presença confirmada:<input type="radio" name="presenca" value="1">Sim</label>
         <label for=""><input type="radio" name="presenca" value="0">Não</label>

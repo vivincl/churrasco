@@ -9,8 +9,10 @@ if(
     isset($_POST['tipo']) &&
     isset($_POST['acompanhamento'])&& 
     isset($_POST['presenca'])&&
-    isset($_POST['pago'])
-){
+    isset($_POST['pago'])){ ?>
+
+<?php
+
 
     $nome = $_POST['nome'];
     $turma = $_POST['turma'];
