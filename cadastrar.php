@@ -7,9 +7,10 @@ require_once('conexao.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de novos jogos</title>
+    <title>Cadastro de novos participantes</title>
     
 </head>
+    
 <body style="display: flex; flex-direction:column;">
     <form action="salvar.php" method="post" id="form_cadastrar">
         <h2>Cadastre o participante</h2>
@@ -30,9 +31,11 @@ require_once('conexao.php');
         <br>
         <label for="">Pagamento <input type="radio" name="pago" value="1">Sim</label>
         <label for=""><input type="radio" name="pago" value="0">Não</label>
-
+        
         <button type="submit" name="botao">Salvar</button>
     </form>
     
+    
+    <script src="script2.js"></script>
 </body>
 </html>

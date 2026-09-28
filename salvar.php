@@ -27,7 +27,9 @@ if(
     $resultado = $mysqli->query($sql);
     echo "Salvo com sucesso";
     echo " <a href='listar.php'>Voltar para a lista de participantes</a> <?php";
+
 }
 else {
     echo "Não foi possível salvar";
-}
+}?>
+
