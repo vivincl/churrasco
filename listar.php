@@ -73,7 +73,7 @@ if (!isset($_GET['btnFiltrar']) || $_GET['pagamento'] === "-1" || $_GET['presenc
                 <th>Acompanhamento</th>
                 <th>Confirmado</th>
                 <th>Pago</th>
-                <th colspan="2">Ações</th>
+                <th colspan="3">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -100,6 +100,9 @@ if (!isset($_GET['btnFiltrar']) || $_GET['pagamento'] === "-1" || $_GET['presenc
                 <td>" . $participante['pago'] . "</td>
                 <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
                 <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                <td><a href='atualizar.php?id=". $participante['id'] . "'>Confirmar presença</a></td>
+
+
                 </tr>";
             }
         }
