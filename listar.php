@@ -52,12 +52,17 @@ if (isset($_GET['nomePesquisa'])) {
             <option value="naoConfirmados">Não confirmados</option>
         </select>
         <br>
-        <button>Filtrar</button>
+        <button name="btnFiltrar">Filtrar</button>
     </form>
 
     <br>
 
-    <table border='1px'>
+    <table border='1px' 
+<?php 
+if (!isset($_GET['btnFiltrar']) || $_GET['pagamento'] === "-1" || $_GET['presenca'] === "-1") {
+    echo "";
+} else {
+?>>
         <thead>
             <tr>
                 <th>Nome</th>
@@ -74,66 +79,183 @@ if (isset($_GET['nomePesquisa'])) {
             <tr>
 
             <?php
-if (isset($_GET['pagamento'])) {
-    $pagamento = $_GET['pagamento'];
-    
-    if ($pagamento === "-1") {
-        echo "";
-    }
+    if (isset($_GET['pagamento']) && isset($_GET['presenca'])) {
+        $pagamento = $_GET['pagamento'];
+        $presenca = $_GET['presenca'];
+        
+        // if ($pagamento === "-1") {
+        //     echo "";
+        // }
 
-    else if ($pagamento === "todos") {
-        $sqlLista = "SELECT * FROM participantes";
-        $resultadoLista = $mysqli->query($sqlLista);
+        // PAGAMENTO TODOS
+        if ($pagamento === "todos" && $presenca === "todos") {
+            $sqlLista = "SELECT * FROM participantes";
+            $resultadoLista = $mysqli->query($sqlLista);
 
-        while ($participante = $resultadoLista->fetch_assoc()) {
-            echo "<td>" . $participante['nome'] . "</td>
-            <td>" . $participante['turma'] . "</td>
-            <td>" . $participante['telefone'] . "</td>
-            <td>" . $participante['tipo_churrasco'] . "</td>
-            <td>" . $participante['acompanhamento'] . "</td>
-            <td>" . $participante['confirmado'] . "</td>
-            <td>" . $participante['pago'] . "</td>
-            <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
-            <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
-            </tr>";
+            while ($participante = $resultadoLista->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
         }
-    }
 
-    else if ($pagamento === "pagos") {
-        $sqlListaPagos = "SELECT * FROM participantes where pago = 1";
-        $resultadoListaPagos = $mysqli->query($sqlListaPagos);
-    
-        while ($participante = $resultadoListaPagos->fetch_assoc()) {
-            echo "<td>" . $participante['nome'] . "</td>
-            <td>" . $participante['turma'] . "</td>
-            <td>" . $participante['telefone'] . "</td>
-            <td>" . $participante['tipo_churrasco'] . "</td>
-            <td>" . $participante['acompanhamento'] . "</td>
-            <td>" . $participante['confirmado'] . "</td>
-            <td>" . $participante['pago'] . "</td>
-            <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
-            <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
-            </tr>";
+        // PAGAMENTO TODOS E CONFIRMADOS
+        if ($pagamento === "todos" && $presenca === "confirmados") {
+            $sqlLista = "SELECT * FROM participantes WHERE confirmado = 1";
+            $resultadoLista = $mysqli->query($sqlLista);
+
+            while ($participante = $resultadoLista->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
         }
-    }
 
-    else if ($pagamento === "pendentes") {
-        $sqlListaPendentes = "SELECT * FROM participantes where pago = 0";
-        $resultadoListaPendentes = $mysqli->query($sqlListaPendentes);
-    
-        while ($participante = $resultadoListaPendentes->fetch_assoc()) {
-            echo "<td>" . $participante['nome'] . "</td>
-            <td>" . $participante['turma'] . "</td>
-            <td>" . $participante['telefone'] . "</td>
-            <td>" . $participante['tipo_churrasco'] . "</td>
-            <td>" . $participante['acompanhamento'] . "</td>
-            <td>" . $participante['confirmado'] . "</td>
-            <td>" . $participante['pago'] . "</td>
-            <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
-            <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
-            </tr> 
-        </tbody>
-    </table><br>";
+        // PAGAMENTO TODOS E NÃO CONFIRMADOS
+        if ($pagamento === "todos" && $presenca === "naoConfirmados") {
+            $sqlLista = "SELECT * FROM participantes WHERE confirmado = 0";
+            $resultadoLista = $mysqli->query($sqlLista);
+
+            while ($participante = $resultadoLista->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
+        }
+
+        // PAGAMENTO PAGOS E TODOS
+        else if ($pagamento === "pagos" && $presenca === "todos") {
+            $sqlListaPagos = "SELECT * FROM participantes where pago = 1";
+            $resultadoListaPagos = $mysqli->query($sqlListaPagos);
+        
+            while ($participante = $resultadoListaPagos->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
+        }
+
+        // PAGAMENTO PAGO E CONFIRMADOS
+        else if ($pagamento === "pagos" && $presenca === "confirmados") {
+            $sqlListaPagos = "SELECT * FROM participantes where pago = 1 AND confirmado = 1";
+            $resultadoListaPagos = $mysqli->query($sqlListaPagos);
+        
+            while ($participante = $resultadoListaPagos->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
+        }
+
+        // PAGAMENTO PAGOS E NÃO CONFIRMADOS
+        else if ($pagamento === "pagos" && $presenca === "naoConfirmados") {
+            $sqlListaPagos = "SELECT * FROM participantes where pago = 1 AND confirmado = 0";
+            $resultadoListaPagos = $mysqli->query($sqlListaPagos);
+        
+            while ($participante = $resultadoListaPagos->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
+        }
+
+        // PAGAMENTO PENDENTE E TODOS
+        else if ($pagamento === "pendentes" && $presenca === "todos") {
+            $sqlListaPendentes = "SELECT * FROM participantes where pago = 0";
+            $resultadoListaPendentes = $mysqli->query($sqlListaPendentes);
+        
+            while ($participante = $resultadoListaPendentes->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
+        }
+
+        // // PAGAMENTO PENDENTE E CONFIRMADOS
+        else if ($pagamento === "pendentes" && $presenca === "confirmados") {
+            $sqlListaPendentes = "SELECT * FROM participantes where pago = 0 AND confirmado = 1";
+            $resultadoListaPendentes = $mysqli->query($sqlListaPendentes);
+        
+            while ($participante = $resultadoListaPendentes->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
+        }
+
+        // // PAGAMENTO PENDENTE E NÃO CONFIRMADOS
+        else if ($pagamento === "pendentes" && $presenca === "naoConfirmados") {
+            $sqlListaPendentes = "SELECT * FROM participantes where pago = 0 AND confirmado = 0";
+            $resultadoListaPendentes = $mysqli->query($sqlListaPendentes);
+        
+            while ($participante = $resultadoListaPendentes->fetch_assoc()) {
+                echo "<td>" . $participante['nome'] . "</td>
+                <td>" . $participante['turma'] . "</td>
+                <td>" . $participante['telefone'] . "</td>
+                <td>" . $participante['tipo_churrasco'] . "</td>
+                <td>" . $participante['acompanhamento'] . "</td>
+                <td>" . $participante['confirmado'] . "</td>
+                <td>" . $participante['pago'] . "</td>
+                <td><a href='editar.php?id=". $participante['id'] . "'>Editar</a></td>
+                <td><a href='excluir.php?id=". $participante['id'] . "'>Excluir</a></td>
+                </tr>";
+            }
         }
     }
 }
