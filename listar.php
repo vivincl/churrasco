@@ -8,6 +8,7 @@ require_once("conexao.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
     <form action="" method="get">
