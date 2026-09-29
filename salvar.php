@@ -8,20 +8,23 @@ if(
     isset($_POST['telefone']) &&
     isset($_POST['tipo']) &&
     isset($_POST['acompanhamento'])&& 
-    isset($_POST['presença'])
+    isset($_POST['presenca'])&&
+    isset($_POST['pago'])
 ){
 
     $nome = $_POST['nome'];
-    $categoria = $_POST['turma'];
-    $patrimonio = $_POST['telefone'];
-    $estado = $_POST['tipo'];
-    $disponivel = $_POST['acompanhamento'];
+    $turma = $_POST['turma'];
+    $telefone = $_POST['telefone'];
+    $tipo = $_POST['tipo'];
+    $acompanhamento = $_POST['acompanhamento'];
+    $presenca = $_POST['presenca'];
+    $pago = $_POST['pago'];
 
 
-    $sql = "INSERT INTO equipamentos (nome, categoria, patrimonio, estado, disponivel) values('".$nome."','".$categoria."','". $patrimonio."','".$estado."','".$disponivel."')";
+    $sql = "INSERT INTO participantes (nome, turma, telefone, tipo_churrasco, acompanhamento, confirmado,pago) values('".$nome."','".$turma."','". $telefone."','".$tipo."','".$acompanhamento."',".$presenca.",".$pago.")";
     $resultado = $mysqli->query($sql);
     echo "Salvo com sucesso";
-    echo " <a href='listar.php'>Voltar para a lista de jogos</a> <?php";
+    echo " <a href='listar.php'>Voltar para a lista de participantes</a> <?php";
 }
 else {
     echo "Não foi possível salvar";
