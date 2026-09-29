@@ -84,9 +84,6 @@ if (!isset($_GET['btnFiltrar']) || $_GET['pagamento'] === "-1" || $_GET['presenc
         $pagamento = $_GET['pagamento'];
         $presenca = $_GET['presenca'];
         
-        // if ($pagamento === "-1") {
-        //     echo "";
-        // }
 
         // PAGAMENTO TODOS
         if ($pagamento === "todos" && $presenca === "todos") {

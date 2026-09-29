@@ -7,7 +7,7 @@ if(
     isset($_POST['telefone']) &&
     isset($_POST['tipo']) &&
     isset($_POST['acompanhamento'])&& 
-    isset($_POST['presenca'])&&
+    isset($_POST['confirmado'])&&
     isset($_POST['pago'])
 ){
     $id = $_POST['id'];
@@ -16,22 +16,22 @@ if(
     $telefone = $_POST['telefone'];
     $tipo = $_POST['tipo'];
     $acompanhamento = $_POST['acompanhamento'];
-    $presenca = $_POST['presenca'];
+    $confirmado = $_POST['confirmado'];
     $pago = $_POST['pago'];
 
-    $sql = "UPDATE participantes SET nome = '$nome',
-    turma = '$turma', 
-    telefone = '$telefone',
-    tipo_churrasco = '$tipo_churrasco', 
-    acompanhamento = '$acompanhamento', 
-    confirmado = $confirmado, 
-    pago = $pago WHERE id = $id";
+    $sql = "UPDATE participantes SET nome = '" . $nome . "',
+        turma = '" . $turma . "', 
+        telefone = '" . $telefone . "',
+        tipo_churrasco = '" . $tipo . "', 
+        acompanhamento = '$acompanhamento', 
+        confirmado = $confirmado, 
+        pago = $pago WHERE id = $id";
 
     $resultado = $mysqli->query($sql);
     echo "Atualizado com sucesso";
     echo "<a href='listar.php'>Voltar para a lista de participantes</a>";
 } else {
-    echo "Não foi possível atualizar.";
+    echo "Não foi possível atualizar." . $mysqli->error;
 }
 ?>
 <!DOCTYPE html>

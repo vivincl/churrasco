@@ -38,8 +38,8 @@ $participante = $resultado->fetch_assoc();
         <label for="">Acompanhamento: <input type="text" name="acompanhamento"><br>
         <br>
 
-        <label for="">Presença confirmada:<input type="radio" name="presenca" value="1">Sim</label>
-        <label for=""><input type="radio" name="presenca" value="0">Não</label>
+        <label for="">Presença confirmada:<input type="radio" name="confirmado" value="1">Sim</label>
+        <label for=""><input type="radio" name="confirmado" value="0">Não</label>
         <br>
 
         <label for="">Pagamento: <input type="radio" name="pago" value="1">Sim</label>
