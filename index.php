@@ -1,3 +1,7 @@
+<?php
+require_once('conexao.php');
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,9 +14,27 @@
 
     <?php
     
-    $totalInscritos
-    $confirmados
-    $
+    $totalInscritos = "SELECT COUNT(*) as total FROM PARTICIPANTES";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
+    $confirmados = "SELECT COUNT(*) FROM PARTICIPANTES WHERE CONFIRMADO = 1";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
+    $naoConfrimar = "SELECT COUNT(*) FROM PARTICIPANTES WHERE CONFIRMADO = 0";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
+    $pagamentosRealizados = "SELECT COUNT(*) FROM PARTICIPANTES WHERE PAGO = 1";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
+    $pagamentosPendentes = "SELECT COUNT(*) FROM PARTICIPANTES WHERE PAGO = 0";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
+    $churrascoTradicional = "SELECT COUNT(*) FROM PARTICIPANTES WHERE TIPO_CHURRASCO = 'Normal";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
+    $vegetariano = "SELECT COUNT(*) FROM PARTICIPANTES WHERE TIPO_CHURRASCO = 'Vegetariano";
+    $rti = ($mysqli->query($totalInscritos))->fetch_assoc()['total'];
+    echo "Total de inscritos: " . $rti;
     
     
     
@@ -22,7 +44,7 @@
     
     ?>
 
-    Total de inscritos:
+
     <!-- sql pra mostrar o total -->
 
     Confirmados:
